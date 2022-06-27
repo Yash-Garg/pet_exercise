@@ -14,7 +14,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> _getImage() async {
-    final imageResponse = await getIt<DataApi>().getRandomImage();
+    final imageResponse = await getIt<DataApi>().getRandomMedia();
 
     imageResponse.fold(
       (image) => emit(state.copyWith(imageUrl: image.url, loading: false)),

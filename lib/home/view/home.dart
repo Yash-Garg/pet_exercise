@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petperfect_exercise/home/cubit/home_cubit.dart';
+import 'package:petperfect_exercise/utils/video_player.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -31,24 +32,48 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<HomeCubit, HomeState>(
-        builder: (context, state) {
-          if (state.loading) {
-            return const Center(child: CircularProgressIndicator());
-          }
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        if (state.loading) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
 
-          if (!state.loading && state.imageUrl != null) {
-            return Scaffold(
-              body: Center(
-                child: CachedNetworkImage(imageUrl: state.imageUrl!),
+        if (!state.loading && state.imageUrl != null) {
+          final url = state.imageUrl!.toLowerCase();
+          return Scaffold(
+            body: Center(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height / 2,
+                child: url.contains('.jpeg') ||
+                        url.contains('.jpg') ||
+                        url.contains('.png') ||
+                        url.contains('.gif')
+                    ? CachedNetworkImage(
+                        imageUrl: state.imageUrl!,
+                        progressIndicatorBuilder: (_, __, ___) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    : VideoPlayerWidget(videoURL: state.imageUrl!),
               ),
-            );
-          }
+            ),
+            floatingActionButton: !state.loading
+                ? FloatingActionButton(
+                    child: const Icon(
+                      Icons.skip_next_rounded,
+                      color: Colors.white,
+                      size: 40,
+                    ),
+                    onPressed: () {},
+                  )
+                : null,
+          );
+        }
 
-          return const Center(child: Text('Error'));
-        },
-      ),
+        return const Center(child: Text('Error'));
+      },
     );
   }
 }
