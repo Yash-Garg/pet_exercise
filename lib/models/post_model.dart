@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part '../generated/models/post_model.freezed.dart';
+part '../generated/models/post_model.g.dart';
 
 @freezed
 class PostModel with _$PostModel {

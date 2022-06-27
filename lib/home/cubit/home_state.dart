@@ -5,6 +5,7 @@ class HomeState with _$HomeState {
   const factory HomeState({
     required bool loading,
     required bool hasError,
+    String? imageUrl,
   }) = _HomeState;
 
   factory HomeState.initial() => const _HomeState(
