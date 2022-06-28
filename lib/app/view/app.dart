@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:petperfect_exercise/home/view/home.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:petperfect_exercise/ui/home/view/home.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -9,10 +10,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-        colorScheme: ColorScheme.fromSwatch(
-          accentColor: const Color(0xFF13B9FF),
-        ),
+        fontFamily: GoogleFonts.rubik().fontFamily,
       ),
       home: const HomePage(),
     );

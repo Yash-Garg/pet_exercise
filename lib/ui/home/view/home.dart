@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:petperfect_exercise/home/cubit/home_cubit.dart';
+import 'package:petperfect_exercise/ui/home/cubit/home_cubit.dart';
+import 'package:petperfect_exercise/ui/posts/post.dart';
 import 'package:petperfect_exercise/utils/video_player.dart';
 
 class HomePage extends StatelessWidget {
@@ -34,15 +35,17 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        if (state.loading) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+        if (state.loading && !state.hasError) {
+          return Scaffold(
+            appBar: AppBar(),
+            body: const Center(child: CircularProgressIndicator()),
           );
         }
 
         if (!state.loading && state.imageUrl != null) {
           final url = state.imageUrl!.toLowerCase();
           return Scaffold(
+            appBar: AppBar(),
             body: Center(
               child: SizedBox(
                 height: MediaQuery.of(context).size.height / 2,
@@ -66,7 +69,11 @@ class _HomeViewState extends State<HomeView> {
                       color: Colors.white,
                       size: 40,
                     ),
-                    onPressed: () {},
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<dynamic>(
+                        builder: (_) => const PostsPage(),
+                      ),
+                    ),
                   )
                 : null,
           );

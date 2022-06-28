@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:petperfect_exercise/api/data_api.dart';
 import 'package:petperfect_exercise/di/injectable.dart';
 
-part '../../generated/home/cubit/home_cubit.freezed.dart';
+part '../../../generated/ui/home/cubit/home_cubit.freezed.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
