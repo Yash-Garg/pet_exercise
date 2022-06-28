@@ -18,12 +18,12 @@ class HomeCubit extends Cubit<HomeState> {
     final imageResponse = await getIt<DataApi>().getRandomMedia();
 
     imageResponse.fold(
-      (media) => emit(state.copyWith(mediaUrl: media.url, loading: false)),
-      (error) => emit(
-        state.copyWith(hasError: true, loading: false, error: error),
-      ),
+      (media) => emit(HomeState.loaded().copyWith(mediaUrl: media.url)),
+      (error) => emit(HomeState.error().copyWith(error: error)),
     );
   }
 
-  void processed() => emit(state.copyWith(isProcessed: true));
+  void processed() => emit(
+        HomeState.processed().copyWith(mediaUrl: state.mediaUrl),
+      );
 }

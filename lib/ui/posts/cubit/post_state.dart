@@ -13,4 +13,16 @@ class PostState with _$PostState {
         loading: true,
         hasError: false,
       );
+
+  factory PostState.loaded({required List<PostModel> posts}) => _PostState(
+        loading: false,
+        hasError: false,
+        posts: posts,
+      );
+
+  factory PostState.error({required ApiError apiError}) => _PostState(
+        loading: false,
+        hasError: true,
+        error: apiError,
+      );
 }

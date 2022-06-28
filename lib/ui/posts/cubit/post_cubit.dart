@@ -18,10 +18,8 @@ class PostCubit extends Cubit<PostState> {
     final postResponse = await getIt<DataApi>().getPosts();
 
     postResponse.fold(
-      (posts) => emit(state.copyWith(posts: posts, loading: false)),
-      (err) => emit(
-        state.copyWith(hasError: true, loading: false, error: err),
-      ),
+      (posts) => emit(PostState.loaded(posts: posts)),
+      (err) => emit(PostState.error(apiError: err)),
     );
   }
 }

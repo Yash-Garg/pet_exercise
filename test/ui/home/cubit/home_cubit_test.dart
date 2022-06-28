@@ -7,5 +7,12 @@ void main() {
     test('initial state is loading', () {
       expect(HomeCubit().state.loading, equals(true));
     });
+
+    blocTest<HomeCubit, HomeState>(
+      'emits isProcessed [bool] when media is completely loaded',
+      build: HomeCubit.new,
+      act: (cubit) => cubit.processed(),
+      expect: () => [HomeState.processed()],
+    );
   });
 }

@@ -15,4 +15,22 @@ class HomeState with _$HomeState {
         hasError: false,
         isProcessed: false,
       );
+
+  factory HomeState.loaded() => const _HomeState(
+        loading: false,
+        hasError: false,
+        isProcessed: false,
+      );
+
+  factory HomeState.error() => const _HomeState(
+        loading: false,
+        hasError: true,
+        isProcessed: false,
+      );
+
+  factory HomeState.processed() => const _HomeState(
+        loading: false,
+        hasError: false,
+        isProcessed: true,
+      );
 }
