@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part '../generated/models/error_model.freezed.dart';
-part '../generated/models/error_model.g.dart';
+part '../../generated/data/models/error_model.freezed.dart';
+part '../../generated/data/models/error_model.g.dart';
 
 @freezed
 class ApiError with _$ApiError {

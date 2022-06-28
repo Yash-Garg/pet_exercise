@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:petperfect_exercise/constants.dart';
-import 'package:petperfect_exercise/models/models.dart';
+import 'package:petperfect_exercise/data/models/models.dart';
 
 @lazySingleton
 class DataApi {
