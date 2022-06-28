@@ -7,7 +7,7 @@ class HomeState with _$HomeState {
     required bool hasError,
     required bool isProcessed,
     ApiError? error,
-    String? imageUrl,
+    String? mediaUrl,
   }) = _HomeState;
 
   factory HomeState.initial() => const _HomeState(

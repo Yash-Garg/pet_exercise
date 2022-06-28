@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petperfect_exercise/ui/home/cubit/home_cubit.dart';
 import 'package:petperfect_exercise/ui/posts/post.dart';
+import 'package:petperfect_exercise/utils/hive_utils.dart';
 import 'package:petperfect_exercise/utils/video_player.dart';
 
 class HomePage extends StatelessWidget {
@@ -42,8 +43,8 @@ class _HomeViewState extends State<HomeView> {
           );
         }
 
-        if (!state.loading && state.imageUrl != null) {
-          final url = state.imageUrl!.toLowerCase();
+        if (!state.loading && state.mediaUrl != null) {
+          final url = state.mediaUrl!.toLowerCase();
           return Scaffold(
             body: Center(
               child: SizedBox(
@@ -53,7 +54,7 @@ class _HomeViewState extends State<HomeView> {
                         url.contains('.png') ||
                         url.contains('.gif')
                     ? CachedNetworkImage(
-                        imageUrl: state.imageUrl!,
+                        imageUrl: state.mediaUrl!,
                         progressIndicatorBuilder: (_, __, progress) {
                           print(progress.progress);
                           if (progress.progress == 1.0)
@@ -64,17 +65,18 @@ class _HomeViewState extends State<HomeView> {
                           );
                         },
                       )
-                    : VideoPlayerWidget(videoURL: state.imageUrl!),
+                    : VideoPlayerWidget(videoURL: state.mediaUrl!),
               ),
             ),
             floatingActionButton: state.isProcessed
                 ? FloatingActionButton(
-                    child: const Icon(
+                    child: Icon(
                       Icons.skip_next_rounded,
                       color: Colors.white,
                       size: 40,
                     ),
                     onPressed: () async {
+                      HiveUtils.saveToDb(state.mediaUrl!);
                       Navigator.of(context).push(
                         MaterialPageRoute<dynamic>(
                           builder: (_) => const PostsPage(),
