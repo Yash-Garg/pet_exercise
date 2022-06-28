@@ -19,7 +19,9 @@ class PostCubit extends Cubit<PostState> {
 
     postResponse.fold(
       (posts) => emit(state.copyWith(posts: posts, loading: false)),
-      (err) => emit(state.copyWith(hasError: true, loading: false)),
+      (err) => emit(
+        state.copyWith(hasError: true, loading: false, error: err),
+      ),
     );
   }
 }

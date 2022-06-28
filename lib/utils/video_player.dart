@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:petperfect_exercise/ui/home/cubit/home_cubit.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
@@ -17,6 +19,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     super.initState();
     _controller = VideoPlayerController.network(widget.videoURL)
       ..initialize().then((_) {
+        context.read<HomeCubit>().processed();
         setState(() {});
       });
   }

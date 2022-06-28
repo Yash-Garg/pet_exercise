@@ -5,6 +5,7 @@ class PostState with _$PostState {
   const factory PostState({
     required bool loading,
     required bool hasError,
+    ApiError? error,
     List<PostModel>? posts,
   }) = _PostState;
 

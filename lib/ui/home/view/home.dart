@@ -37,7 +37,6 @@ class _HomeViewState extends State<HomeView> {
       builder: (context, state) {
         if (state.loading && !state.hasError) {
           return Scaffold(
-            appBar: AppBar(),
             body: const Center(child: CircularProgressIndicator()),
           );
         }
@@ -45,7 +44,6 @@ class _HomeViewState extends State<HomeView> {
         if (!state.loading && state.imageUrl != null) {
           final url = state.imageUrl!.toLowerCase();
           return Scaffold(
-            appBar: AppBar(),
             body: Center(
               child: SizedBox(
                 height: MediaQuery.of(context).size.height / 2,
@@ -55,14 +53,19 @@ class _HomeViewState extends State<HomeView> {
                         url.contains('.gif')
                     ? CachedNetworkImage(
                         imageUrl: state.imageUrl!,
-                        progressIndicatorBuilder: (_, __, ___) => const Center(
-                          child: CircularProgressIndicator(),
-                        ),
+                        progressIndicatorBuilder: (_, __, progress) {
+                          print(progress.progress);
+                          if (progress.progress == 1.0)
+                            context.read<HomeCubit>().processed();
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
                       )
                     : VideoPlayerWidget(videoURL: state.imageUrl!),
               ),
             ),
-            floatingActionButton: !state.loading
+            floatingActionButton: state.isProcessed
                 ? FloatingActionButton(
                     child: const Icon(
                       Icons.skip_next_rounded,
@@ -79,7 +82,13 @@ class _HomeViewState extends State<HomeView> {
           );
         }
 
-        return const Center(child: Text('Error'));
+        return Scaffold(
+          body: Center(
+              child: Text(
+            state.error!.message!,
+            style: TextStyle(fontSize: 20.0),
+          )),
+        );
       },
     );
   }

@@ -31,7 +31,7 @@ class _PostViewState extends State<PostView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text('Posts')),
       body: BlocBuilder<PostCubit, PostState>(
         builder: (context, state) {
           if (state.loading) {
@@ -66,7 +66,11 @@ class _PostViewState extends State<PostView> {
             );
           }
 
-          return const Text('Failed to lost posts');
+          return Center(
+              child: Text(
+            state.error!.message!,
+            style: TextStyle(fontSize: 20.0),
+          ));
         },
       ),
     );
