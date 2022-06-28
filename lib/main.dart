@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:petperfect_exercise/app/app.dart';
 import 'package:petperfect_exercise/bootstrap.dart';
 import 'package:petperfect_exercise/di/injectable.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
   configureDependencies();
   bootstrap(() => const App());
 }

@@ -10,6 +10,10 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        appBarTheme: const AppBarTheme(color: Colors.green),
+        colorScheme: ColorScheme.fromSwatch(
+          accentColor: Colors.green,
+        ),
         fontFamily: GoogleFonts.rubik().fontFamily,
       ),
       home: const HomePage(),

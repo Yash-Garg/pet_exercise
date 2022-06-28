@@ -37,7 +37,8 @@ class _HomeViewState extends State<HomeView> {
       builder: (context, state) {
         if (state.loading && !state.hasError) {
           return Scaffold(
-            body: const Center(child: CircularProgressIndicator()),
+            body: const Center(
+                child: CircularProgressIndicator(color: Colors.green)),
           );
         }
 
@@ -58,7 +59,8 @@ class _HomeViewState extends State<HomeView> {
                           if (progress.progress == 1.0)
                             context.read<HomeCubit>().processed();
                           return const Center(
-                            child: CircularProgressIndicator(),
+                            child:
+                                CircularProgressIndicator(color: Colors.green),
                           );
                         },
                       )
@@ -72,11 +74,13 @@ class _HomeViewState extends State<HomeView> {
                       color: Colors.white,
                       size: 40,
                     ),
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute<dynamic>(
-                        builder: (_) => const PostsPage(),
-                      ),
-                    ),
+                    onPressed: () async {
+                      Navigator.of(context).push(
+                        MaterialPageRoute<dynamic>(
+                          builder: (_) => const PostsPage(),
+                        ),
+                      );
+                    },
                   )
                 : null,
           );

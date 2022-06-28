@@ -35,34 +35,46 @@ class _PostViewState extends State<PostView> {
       body: BlocBuilder<PostCubit, PostState>(
         builder: (context, state) {
           if (state.loading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(color: Colors.green),
+            );
           }
 
           if (!state.loading && state.posts != null) {
-            return ListView.builder(
-              physics: BouncingScrollPhysics(),
-              itemCount: state.posts!.length,
-              itemBuilder: (context, index) {
-                final post = state.posts![index];
+            return Scrollbar(
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                physics: BouncingScrollPhysics(),
+                itemCount: state.posts!.length,
+                itemBuilder: (context, index) {
+                  final post = state.posts![index];
 
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                  ),
-                  elevation: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: ListTile(
-                      title: Text(post.title),
-                      minVerticalPadding: 10,
-                      subtitle: Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Text(post.body),
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 2.0,
+                    ),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                      ),
+                      color: Colors.green.withOpacity(.1),
+                      elevation: 0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: ListTile(
+                          title: Text(post.title),
+                          minVerticalPadding: 10,
+                          subtitle: Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Text(post.body),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             );
           }
 
